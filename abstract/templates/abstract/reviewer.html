@@ -16,8 +16,19 @@
 				<tr>
 					<th></th>
 					<th>Author</th>
-					<th>Status</th>
+					<th>Email</th>
+					<th>Phone</th>
 				</tr>
+
+				{% for author in authors %}
+                <tr>
+					<td><a class="btn btn-sm btn-info" href="{% url 'author' author.id %}">View</a></td>
+                    <td>{{ author.first_name }} {{ author.last_name }}</td>
+                    <td>{{ author.email }}</td>
+					<td>{{ author.phone }}</td>
+                </tr>
+
+                {% endfor %}
 
 			</table>
 		</div>
@@ -32,10 +43,21 @@
 				<tr>
 					<th>Abstract</th>
 					<th>Date submitted</th>
-					<th>Status</th>
+					<th>Name</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
+
+				{% for abstract in abstracts %}
+                <tr>
+                    <td>{{ abstract.title }} </td>
+                    <td>{{ abstract.date_created }}</td>
+					<td>{{ abstract.author_name }}</td>
+					<td><a class= "btn btn-sm btn-info" href=""> Update </a></td>
+					<td><a class= "btn btn-sm btn-danger" href=""> Delete </a></td>
+                </tr>
+
+                {% endfor %}
 		
 			</table>
 		</div>

@@ -7,10 +7,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Home</a>
-        <a class="nav-item nav-link" href="#">reviewer</a>
-        <a class="nav-item nav-link" href="#">author</a>
-        <a class="nav-item nav-link" href="#">abstract</a>
+        <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+        <a class="nav-item nav-link" href="{% url 'reviewer' %}">Reviewer</a>
+        <a class="nav-item nav-link" href="#">Post</a>
+        <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
       </div>
     </div>
   </nav>

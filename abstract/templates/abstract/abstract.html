@@ -12,10 +12,19 @@
 				<div class="card card-body">
 					<table class="table">
 						<tr>
-							<th>Abstract</th>
+							<th>Title</th>
 							<th>Topics</th>
-							<th>status</th>
+							<th>Preferences</th>
 						</tr>
+
+						{% for i in abstracts %}
+							<tr>
+								<td>{{ i.title }}</td>
+								<td>{{ i.topics }}</td>
+								<td>{{ i.presentation_preference }}</td>
+							</tr>
+
+						{% endfor %}
 						
 					</table>
 				</div>

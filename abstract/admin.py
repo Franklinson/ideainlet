@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Author, Abstract_form, Abstract_status, Event_topics, Presentation_type
+from .models import Author, Abstract, Statuse, Topic, Presentation_type
 
 # Register your models here.
 
 admin.site.register(Author)
-admin.site.register(Event_topics)
+admin.site.register(Topic)
 admin.site.register(Presentation_type)
-admin.site.register(Abstract_form)
-admin.site.register(Abstract_status)
+admin.site.register(Abstract)
+admin.site.register(Statuse)

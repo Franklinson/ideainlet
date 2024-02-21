@@ -27,14 +27,15 @@ class Author(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.first_name, self.last_name, self.email, self.date_created
+        return self.first_name
     
 
-class Event_topics(models.Model):
+
+class Topic(models.Model):
     topics = models.CharField(max_length=1000, null=True)
 
     def __str__(self):
-        return self.topic
+        return self.topics
 
 class Presentation_type(models.Model):
     presentation_preference = models.CharField(max_length=1000, null=True)
@@ -42,7 +43,7 @@ class Presentation_type(models.Model):
     def __str__(self):
         return self.presentation_preference    
 
-class Abstract_form(models.Model):
+class Abstract(models.Model):
     title = models.CharField(max_length=200, null=True)
     abstract_body = models.CharField(max_length=600, null=True)
     keywords = models.CharField(max_length=300, null=True)
@@ -52,13 +53,16 @@ class Abstract_form(models.Model):
     presenter_name = models.CharField(max_length=200, null=True)
     presenter_email = models.CharField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    topics = models.ManyToManyField(Event_topics)
+    topics = models.ManyToManyField(Topic)
     presentation_preference = models.ManyToManyField(Presentation_type)
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.title, self.topics, self.presentation_preference, self.date_created
+        return self.title
+    
 
-class Abstract_status(models.Model):
+
+class Statuse(models.Model):
     STATUS = (
         ("Pending", "Pending"),
         ("Under Review", "Under Review"),
@@ -66,7 +70,7 @@ class Abstract_status(models.Model):
         ("Rejected.", "Rejected"),
     )
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
-    abstract_form = models.ForeignKey(Abstract_form, null=True, on_delete=models.SET_NULL)
+    abstract = models.ForeignKey(Abstract, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS)
 

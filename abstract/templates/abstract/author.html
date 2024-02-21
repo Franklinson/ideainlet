@@ -20,8 +20,8 @@
         <div class="card card-body">
             <h5>Contact Information</h5>
             <hr>
-            <p>Email: </p>
-            <p>Phone: </p>
+            <p>Email: {{authors.email}}</p>
+            <p>Phone: {{authors.phone}}</p>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
         <div class="card card-body">
             <h5>Total Abstract Submitted</h5>
             <hr>
-            <h1 style="text-align: center;padding: 10px"></h1>
+            <h1 style="text-align: center;padding: 10px">{{abstract_count}}</h1>
         </div>
     </div>
 </div>
@@ -61,6 +61,18 @@
                     <th>Update</th>
                     <th>Remove</th>
                 </tr>
+
+                {% for abstract in abstracts %}
+                    <tr>
+                        <td>{{ abstract.author.title }}</td>
+                        <td>{{ abstract.author.topics }}</td>
+                        <td>{{ abstract.author.date_created }}</td>
+                        <td>{{ abstract.abstract.date_created }}</td>
+                        <td><a class= "btn btn-sm btn-info" href=""> Update </a></td>
+					    <td><a class= "btn btn-sm btn-danger href=""> Remove </a></td>
+                    </tr>
+
+				{% endfor %}
 
             </table>
         </div>
