@@ -1,0 +1,43 @@
+{%  extends 'abstract/main.html' %}
+
+{% block content %}
+
+<br>
+
+<br>
+<div class="row">
+	<div class="col-md-12">
+		<h5>LIST OF ABSTRACTS</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Submitted Abstract</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Abstract</th>
+					<th>Name</th>
+                    <th>Date submitted</th>
+                    <th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for abstract in abstracts %}
+                <tr>
+                    <td>{{ abstract.title }} </td>
+					<td>{{ abstract.author_name }}</td>
+                    <td>{{ abstract.date_created }}</td>
+                    <td>Status</td>
+					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
+					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
+                </tr>
+
+                {% endfor %}
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
+

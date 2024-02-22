@@ -61,7 +61,6 @@ class Abstract(models.Model):
         return self.title
     
 
-
 class Statuse(models.Model):
     STATUS = (
         ("Pending", "Pending"),

@@ -6,6 +6,34 @@
 
 <br>
 
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+            <form method="get">
+				<p> Search for Authors </p>
+				{{myfilter.form}}
+
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+    </div>
+
+
+	<div class="col">
+        <div class="card card-body">
+            <form method="get">
+				<p> Search for Abstracts </p>
+				{{absfilter.form}}
+
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+    </div>
+    
+</div>
+<br>
+
 <div class="row">
 	<div class="col-md-5">
 		<h5>AUHTORS:</h5>
@@ -22,7 +50,7 @@
 
 				{% for author in authors %}
                 <tr>
-					<td><a class="btn btn-sm btn-info" href="{% url 'author' author.id %}">View</a></td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'author' author.first_name %}">View</a></td>
                     <td>{{ author.first_name }} {{ author.last_name }}</td>
                     <td>{{ author.email }}</td>
 					<td>{{ author.phone }}</td>
@@ -38,7 +66,7 @@
 		<h5>LAST 5 ABSTRACT</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Abstract</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="">Submitted Abstract</a>
 			<table class="table table-sm">
 				<tr>
 					<th>Abstract</th>
@@ -53,8 +81,8 @@
                     <td>{{ abstract.title }} </td>
                     <td>{{ abstract.date_created }}</td>
 					<td>{{ abstract.author_name }}</td>
-					<td><a class= "btn btn-sm btn-info" href=""> Update </a></td>
-					<td><a class= "btn btn-sm btn-danger" href=""> Delete </a></td>
+					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
+					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                 </tr>
 
                 {% endfor %}

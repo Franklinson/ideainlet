@@ -8,10 +8,11 @@
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
-            <h5>Author:</h5>
+            <h5>Author: {{author.first_name}} {{author.last_name}}</h5>
             <hr>
             <a class="btn btn-outline-info  btn-sm btn-block" href="">Update Author</a>
             <a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Author</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_abstract' author.first_name %}">Add New Abstract</a>
 
         </div>
     </div>
@@ -20,8 +21,8 @@
         <div class="card card-body">
             <h5>Contact Information</h5>
             <hr>
-            <p>Email: {{authors.email}}</p>
-            <p>Phone: {{authors.phone}}</p>
+            <p>Email: {{author.email}}</p>
+            <p>Phone: {{author.phone}}</p>
         </div>
     </div>
 
@@ -41,7 +42,7 @@
         <div class="card card-body">
             <form method="get">
 
-            <button class="btn btn-primary" type="submit">Search</button>
+            <h2 class="btn btn-primary"> List of Abstracts submitted </h2>
           </form>
         </div>
     </div>
@@ -62,14 +63,18 @@
                     <th>Remove</th>
                 </tr>
 
-                {% for abstract in abstracts %}
+                {% for abstract in abstract_info %}
                     <tr>
-                        <td>{{ abstract.author.title }}</td>
-                        <td>{{ abstract.author.topics }}</td>
-                        <td>{{ abstract.author.date_created }}</td>
-                        <td>{{ abstract.abstract.date_created }}</td>
-                        <td><a class= "btn btn-sm btn-info" href=""> Update </a></td>
-					    <td><a class= "btn btn-sm btn-danger href=""> Remove </a></td>
+                        <td>{{ abstract.title }}</td>
+                        
+                        {% for topic in abstract.topics %}
+                            <td>{{ topic }}</td>
+                            {% endfor %} 
+                        
+                        <td>{{ abstract.date_created }}</td>
+                        <td>{{ date_created }}</td>
+                        <td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
+					    <td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                     </tr>
 
 				{% endfor %}
