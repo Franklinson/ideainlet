@@ -6,8 +6,8 @@
 
 <br>
 <div class="row">
-	<div class="col-md-12">
-		<h5>LIST OF ABSTRACTS</h5>
+	<div class="col-md-13">
+			<h5> LIST OF ABSTRACTS ASSIGNED</h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="">Submitted Abstract</a>
@@ -27,7 +27,7 @@
 					<td>{{ abstract.author_name }}</td>
                     <td>{{ abstract.date_created }}</td>
                     <td>Status</td>
-					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
+					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Review </a></td>
 					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                 </tr>
 

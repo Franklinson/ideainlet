@@ -3,10 +3,14 @@ from . import views
 
 
 urlpatterns = [
+    path('register/', views.registerPage, name='register'),
+    path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
+
     path('', views.home, name='home'),
-    path('abstract', views.abstract, name='abstract'),
-    path('reviewer', views.reviewer, name='reviewer'),
-    path('editor', views.editor, name='editor'),
+    path('abstract/', views.abstract, name='abstract'),
+    path('reviewer/', views.reviewer, name='reviewer'),
+    path('editor/', views.editor, name='editor'),
     path('author/<str:pk>/', views.author, name='author'),
 
     path('create_abstract/<str:pk>/', views.createAbstract, name="create_abstract"),

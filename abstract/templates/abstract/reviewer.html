@@ -50,7 +50,7 @@
 
 				{% for author in authors %}
                 <tr>
-					<td><a class="btn btn-sm btn-info" href="{% url 'author' author.first_name %}">View</a></td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'author' author.id %}">View</a></td>
                     <td>{{ author.first_name }} {{ author.last_name }}</td>
                     <td>{{ author.email }}</td>
 					<td>{{ author.phone }}</td>

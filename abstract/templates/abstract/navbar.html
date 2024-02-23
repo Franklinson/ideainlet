@@ -1,4 +1,13 @@
-<!-- {% load static %} -->
+{% load static %}
+
+<style>
+.hello-msg{
+  font-size: 18px;
+  color: #ffff;
+  margin-right: 20px;
+}
+
+</style>
   
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Idea Inlet</a>
@@ -8,9 +17,14 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+        {% if request.user.is_staff %}
         <a class="nav-item nav-link" href="{% url 'reviewer' %}">Reviewer</a>
+        <a class="nav-item nav-link" href="{% url 'editor' %}">Editor</a>
         <a class="nav-item nav-link" href="#">Post</a>
         <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
+        {% endif %}
       </div>
     </div>
+    <span class="hello-msg"> Hello, {{request.user}}</span>
+    <span><a class="hello-msg" href="{% url 'logout' %}"> Logout</a></span>
   </nav>
