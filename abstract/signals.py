@@ -10,7 +10,7 @@ def author_profile(sender, instance, created, **kwargs):
 		instance.groups.add(group)
 		Author.objects.create(
 			user=instance,
-			name=instance.username,
+			first_name=instance.username,
 			)
 		print('Profile created!')
 

@@ -211,7 +211,7 @@ def userPage(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['author'])
 def accountSettings(request):
-    author = request.user
+    author = request.user.author
     form = AuthorForm(instance=author)
 
     if request.method == 'POST':
