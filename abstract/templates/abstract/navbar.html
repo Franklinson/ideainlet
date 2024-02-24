@@ -22,9 +22,13 @@
         <a class="nav-item nav-link" href="{% url 'editor' %}">Editor</a>
         <a class="nav-item nav-link" href="#">Post</a>
         <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
-        {% endif %}
+        {% else %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'account' %}">Settings</a>
+      </li>
+      {% endif %}
       </div>
     </div>
-    <span class="hello-msg"> Hello, {{request.user}}</span>
+    <span class="hello-msg" ><a href="{% url 'user' %}">Hello, {{request.user}} </a></span>
     <span><a class="hello-msg" href="{% url 'logout' %}"> Logout</a></span>
   </nav>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import AbstractForm, CreateUserForm
+from .forms import AbstractForm, CreateUserForm, AuthorForm
 from .filters import AuthorFilter, AbstractFilter
 from django.contrib.auth.forms import UserCreationForm
 
@@ -25,8 +25,6 @@ def registerPage(request):
             user = form.save()
             username = form.cleaned_data.get('username')
 
-            group = Group.objects.get(name='author')
-            user.groups.add(group)
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')
         
@@ -57,7 +55,8 @@ def logoutUser(request):
 
 
 def home(request):
-    return HttpResponse('Home page')
+    context = {}
+    return render(request, 'abstract/home.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['edit', 'reviewer'])
@@ -176,3 +175,51 @@ def deleteAbstract(request, pk):
         return redirect('/reviewer')
     context ={'item': abstract}
     return render(request, 'abstract/delete.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
+def userPage(request):
+
+    aus = request.user.author.abstract_set.all()
+    author_instance = request.user.author
+    abstracts = Abstract.objects.filter(author=author_instance)
+    abstract_info = []
+    for abstract in abstracts:
+        topics = abstract.topics.all()  # Retrieve topics associated with the abstract
+        topic_names = [topic.topics for topic in topics]  # Extract names of topics
+        abstract_info.append({
+            'id': abstract.id,
+            'title': abstract.title,
+            'topics': topic_names,
+            'date_created': abstract.date_created
+        })
+    
+    abstract_count = abstracts.count()
+    
+    context = {
+        'author': author_instance,
+        'abstract_info': abstract_info,
+        'abstract_count': abstract_count
+    }
+
+    context ={'aus':aus}
+
+    return render(request, 'abstract/user.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['author'])
+def accountSettings(request):
+    author = request.user
+    form = AuthorForm(instance=author)
+
+    if request.method == 'POST':
+        form = AuthorForm(request.POST, instance=author)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success URL after saving the form
+            return redirect('/user')  # Change 'success-url' to your desired URL
+
+    context = {'form': form}
+    return render(request, 'abstract/account_settings.html', context)

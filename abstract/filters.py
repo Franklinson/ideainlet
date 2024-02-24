@@ -7,7 +7,8 @@ class AuthorFilter(django_filters.FilterSet):
     class Meta:
         model = Author
         fields = '__all__'
-        exclude = ['title', 'gender', 'phone','profession', 'organization', 'address', 'bio', 'date_created']
+        exclude = ['title', 'gender', 'phone','profession', 'organization', 
+                   'address', 'bio', 'date_created', 'user']
 
 
 class AbstractFilter(django_filters.FilterSet):

@@ -12,6 +12,8 @@ urlpatterns = [
     path('reviewer/', views.reviewer, name='reviewer'),
     path('editor/', views.editor, name='editor'),
     path('author/<str:pk>/', views.author, name='author'),
+    path('user/', views.userPage, name='user'),
+    path('account/', views.accountSettings, name="account"),
 
     path('create_abstract/<str:pk>/', views.createAbstract, name="create_abstract"),
     path('update_abstract/<str:pk>/', views.updateAbstract, name="update_abstract"),

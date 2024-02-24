@@ -1,0 +1,40 @@
+{%  extends 'abstract/main.html' %}
+
+{% block content %}
+
+{%  include 'abstract/status.html' %}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Abstract</th>
+                    <th>Topic</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                    
+                </tr>
+
+                {% for abstract in abstract_info %}
+                    <tr>
+                        <td>{{ abstract.title }}</td>
+                        
+                        {% for topic in abstract.topics %}
+                            <td>{{ topic }}</td>
+                            {% endfor %} 
+                        
+                        <td>{{ abstract.date_created }}</td>
+                        <td>{{ date_created }}</td>
+                
+                    </tr>
+
+				{% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
