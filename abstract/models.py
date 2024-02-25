@@ -22,7 +22,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=200, null=True)
     gender = models.CharField(max_length=50, choices=GENDER)
     phone = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=200, null=True)
     profession = models.CharField(max_length=200, null=True)
     organization = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=300, null=True)
@@ -47,16 +47,24 @@ class Presentation_type(models.Model):
         return self.presentation_preference    
 
 class Abstract(models.Model):
+    STATUS = (
+        ("Pending", "Pending"),
+        ("Under Review", "Under Review"),
+        ("Accepted", "Accepted"),
+        ("Rejected.", "Rejected"),
+    )
     title = models.CharField(max_length=200, null=True)
     abstract_body = models.TextField(max_length=600, null=True, blank=True)
     keywords = models.CharField(max_length=300, null=True)
     author_name = models.CharField(max_length=200, null=True)
-    author_email = models.CharField(max_length=200, null=True)
+    author_email = models.EmailField(max_length=200, null=True)
     author_affiliation = models.CharField(max_length=200, null=True)
     presenter_name = models.CharField(max_length=200, null=True)
-    presenter_email = models.CharField(max_length=200, null=True)
+    presenter_email = models.EmailField(max_length=200, null=True)
     date_created = models.DateField(auto_now_add=True, null=True)
     date_updated = models.DateField(auto_now=True, null=True)
+    upload = models.FileField(upload_to="uploads/%Y/%m/%d/", blank=True)
+    status = models.CharField(max_length=50, choices=STATUS, default='Pending')
     topics = models.ManyToManyField(Topic)
     presentation_preference = models.ManyToManyField(Presentation_type)
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
@@ -65,20 +73,20 @@ class Abstract(models.Model):
         return self.title
     
 
-class Statuse(models.Model):
-    STATUS = (
-        ("Pending", "Pending"),
-        ("Under Review", "Under Review"),
-        ("Accepted", "Accepted"),
-        ("Rejected.", "Rejected"),
-    )
-    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
-    abstract = models.ForeignKey(Abstract, null=True, on_delete=models.SET_NULL)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=50, choices=STATUS)
+# class Statuse(models.Model):
+#     STATUS = (
+#         ("Pending", "Pending"),
+#         ("Under Review", "Under Review"),
+#         ("Accepted", "Accepted"),
+#         ("Rejected.", "Rejected"),
+#     )
+#     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
+#     abstract = models.ForeignKey(Abstract, null=True, on_delete=models.SET_NULL)
+#     date_created = models.DateTimeField(auto_now_add=True, null=True)
+#     status = models.CharField(max_length=50, choices=STATUS)
 
-    def __str__(self):
-        return self.author, self.status, self.date_created
+#     def __str__(self):
+#         return self.author, self.status, self.date_created
 
 
 

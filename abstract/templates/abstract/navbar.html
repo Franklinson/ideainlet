@@ -20,13 +20,15 @@
         <a class="nav-item nav-link" href="#">Post</a>
         <a class="nav-item nav-link" href="#">About Us</a>
         <a class="nav-item nav-link" href="#">Contact Us</a>
+        {% if request.user.unauthenticated %}
         <a class="nav-item nav-link active" href="{% url 'login' %}"> Login</a>
         <a class="nav-item nav-link active" href="{% url 'register' %}"> Register</a>
+        {% endif %}
         {% if request.user.is_staff %}
         <a class="nav-item nav-link" href="{% url 'reviewer' %}">Reviewer</a>
         <a class="nav-item nav-link" href="{% url 'editor' %}">Editor</a>
-        
         <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
+        {% else %}
        <li class="nav-item">
         <a class="nav-link" href="{% url 'account' %}">Settings</a>
       </li>

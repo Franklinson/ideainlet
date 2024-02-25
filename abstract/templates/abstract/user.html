@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{%  include 'abstract/status.html' %}
+{%  include 'abstract/user_status.html' %}
 
 <div class="row">
     <div class="col-md">
@@ -16,17 +16,12 @@
                     
                 </tr>
 
-                {% for abstract in abstract_info %}
+                {% for abstract in abstracts %}
                     <tr>
                         <td>{{ abstract.title }}</td>
-                        
-                        {% for topic in abstract.topics %}
-                            <td>{{ topic }}</td>
-                            {% endfor %} 
-                        
                         <td>{{ abstract.date_created }}</td>
-                        <td>{{ date_created }}</td>
-                
+                        <td>{{ abstract.date_updated }}</td>
+                        <td>{{ abstract.status }}</td>
                     </tr>
 
 				{% endfor %}

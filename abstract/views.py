@@ -101,11 +101,11 @@ def reviewer(request):
 
     authors = Author.objects.all()
     abstracts = Abstract.objects.all()
-    status = Statuse.objects.all()
+    # status = Statuse.objects.all()
 
     total_author = authors.count()
     total_abstract = abstracts.count()
-    accepted = status.filter(status='Accepted').count
+    accepted = abstracts.filter(status='Accepted').count
 
     myfilter = AuthorFilter(request.GET, queryset=authors)
     authors = myfilter.qs
@@ -183,28 +183,18 @@ def deleteAbstract(request, pk):
 def userPage(request):
 
     aus = request.user.author.abstract_set.all()
-    # author_instance = request.user.author
-    # abstracts = Abstract.objects.filter(author=author_instance)
-    # abstract_info = []
-    # for abstract in abstracts:
-    #     topics = abstract.topics.all()  # Retrieve topics associated with the abstract
-    #     topic_names = [topic.topics for topic in topics]  # Extract names of topics
-    #     abstract_info.append({
-    #         'id': abstract.id,
-    #         'title': abstract.title,
-    #         'topics': topic_names,
-    #         'date_created': abstract.date_created
-    #     })
     
-    # abstract_count = abstracts.count()
-    
-    # context = {
-    #     'author': author_instance,
-    #     'abstract_info': abstract_info,
-    #     'abstract_count': abstract_count
-    # }
+    abstracts = Abstract.objects.all()
+    authors = Author.objects.all()
+    abstracts = Abstract.objects.all()
 
-    context ={'aus':aus}
+    total_author = authors.count()
+    total_abstract = abstracts.count()
+    accepted = abstracts.filter(status='Accepted').count
+
+    context ={'aus':aus, 'abstracts':abstracts, 'authors': authors, 
+               'total_author':total_author, 'total_abstract':total_abstract,
+               'accepted': accepted,}
 
     return render(request, 'abstract/user.html', context)
 

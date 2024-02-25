@@ -71,6 +71,7 @@
 					<th>Abstract</th>
 					<th>Date submitted</th>
 					<th>Name</th>
+					<th>Status</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
@@ -80,6 +81,7 @@
                     <td>{{ abstract.title }} </td>
                     <td>{{ abstract.date_created }}</td>
 					<td>{{ abstract.author_name }}</td>
+					<td>{{ abstract.status }}</td>
 					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
 					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                 </tr>
