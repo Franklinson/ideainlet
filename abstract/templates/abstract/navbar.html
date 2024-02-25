@@ -10,25 +10,29 @@
 </style>
   
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Idea Inlet</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Idea Inlet</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+        <a class="nav-item nav-link" href="#">Post</a>
+        <a class="nav-item nav-link" href="#">About Us</a>
+        <a class="nav-item nav-link" href="#">Contact Us</a>
+        <a class="nav-item nav-link active" href="{% url 'login' %}"> Login</a>
+        <a class="nav-item nav-link active" href="{% url 'register' %}"> Register</a>
         {% if request.user.is_staff %}
         <a class="nav-item nav-link" href="{% url 'reviewer' %}">Reviewer</a>
         <a class="nav-item nav-link" href="{% url 'editor' %}">Editor</a>
-        <a class="nav-item nav-link" href="#">Post</a>
+        
         <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
-        {% else %}
        <li class="nav-item">
         <a class="nav-link" href="{% url 'account' %}">Settings</a>
       </li>
-      {% endif %}
       </div>
     </div>
-    <span class="hello-msg" ><a href="{% url 'user' %}">Hello, {{request.user}} </a></span>
-    <span><a class="hello-msg" href="{% url 'logout' %}"> Logout</a></span>
+    <span class="btn btn-info" ><a href="{% url 'user' %}">Hello, {{request.user}} </a></span>
+    <span><a class="btn btn-info" href="{% url 'logout' %}"> Logout</a></span>
+    {% endif %}
   </nav>

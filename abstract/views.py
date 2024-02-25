@@ -59,7 +59,7 @@ def home(request):
     return render(request, 'abstract/home.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['edit', 'reviewer'])
+@allowed_users(allowed_roles=['editor', 'reviewer'])
 def abstract(request):
     abstracts = Abstract.objects.all()
     # topics = Topic.objects.all()
@@ -81,7 +81,8 @@ def author(request, pk):
             'id': abstract.id,
             'title': abstract.title,
             'topics': topic_names,
-            'date_created': abstract.date_created
+            'date_created': abstract.date_created,
+            'date_updated': abstract.date_updated
         })
     
     abstract_count = abstracts.count()
@@ -157,10 +158,10 @@ def updateAbstract(request, pk):
     form = AbstractForm(instance=abstract)
 
     if request.method == 'POST':
-        form =AbstractForm(request.POST, instance=author)
+        form =AbstractForm(request.POST, instance=abstract)
         if form.is_valid():
             form.save()
-            return redirect('/create_abstract')
+            return redirect('/reviewer')
         
     context = {'form': form}
     return render(request, 'abstract/abstract_form.html', context)
@@ -182,26 +183,26 @@ def deleteAbstract(request, pk):
 def userPage(request):
 
     aus = request.user.author.abstract_set.all()
-    author_instance = request.user.author
-    abstracts = Abstract.objects.filter(author=author_instance)
-    abstract_info = []
-    for abstract in abstracts:
-        topics = abstract.topics.all()  # Retrieve topics associated with the abstract
-        topic_names = [topic.topics for topic in topics]  # Extract names of topics
-        abstract_info.append({
-            'id': abstract.id,
-            'title': abstract.title,
-            'topics': topic_names,
-            'date_created': abstract.date_created
-        })
+    # author_instance = request.user.author
+    # abstracts = Abstract.objects.filter(author=author_instance)
+    # abstract_info = []
+    # for abstract in abstracts:
+    #     topics = abstract.topics.all()  # Retrieve topics associated with the abstract
+    #     topic_names = [topic.topics for topic in topics]  # Extract names of topics
+    #     abstract_info.append({
+    #         'id': abstract.id,
+    #         'title': abstract.title,
+    #         'topics': topic_names,
+    #         'date_created': abstract.date_created
+    #     })
     
-    abstract_count = abstracts.count()
+    # abstract_count = abstracts.count()
     
-    context = {
-        'author': author_instance,
-        'abstract_info': abstract_info,
-        'abstract_count': abstract_count
-    }
+    # context = {
+    #     'author': author_instance,
+    #     'abstract_info': abstract_info,
+    #     'abstract_count': abstract_count
+    # }
 
     context ={'aus':aus}
 

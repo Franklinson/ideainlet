@@ -26,7 +26,7 @@ class Author(models.Model):
     profession = models.CharField(max_length=200, null=True)
     organization = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=300, null=True)
-    bio = models.CharField(max_length=600, null=True, blank=True)
+    bio = models.TextField(max_length=600, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -48,14 +48,15 @@ class Presentation_type(models.Model):
 
 class Abstract(models.Model):
     title = models.CharField(max_length=200, null=True)
-    abstract_body = models.CharField(max_length=600, null=True)
+    abstract_body = models.TextField(max_length=600, null=True, blank=True)
     keywords = models.CharField(max_length=300, null=True)
     author_name = models.CharField(max_length=200, null=True)
     author_email = models.CharField(max_length=200, null=True)
     author_affiliation = models.CharField(max_length=200, null=True)
     presenter_name = models.CharField(max_length=200, null=True)
     presenter_email = models.CharField(max_length=200, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    date_created = models.DateField(auto_now_add=True, null=True)
+    date_updated = models.DateField(auto_now=True, null=True)
     topics = models.ManyToManyField(Topic)
     presentation_preference = models.ManyToManyField(Presentation_type)
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
