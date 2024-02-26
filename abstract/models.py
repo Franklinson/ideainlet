@@ -31,7 +31,6 @@ class Author(models.Model):
 
     def __str__(self):
         return self.first_name
-    
 
 
 class Topic(models.Model):
@@ -44,7 +43,21 @@ class Presentation_type(models.Model):
     presentation_preference = models.CharField(max_length=1000, null=True)
 
     def __str__(self):
-        return self.presentation_preference    
+        return self.presentation_preference
+    
+
+    
+class Event(models.Model):
+    event = models.CharField(max_length=500, null=True)
+
+    def __str__(self):
+        return self.event
+    
+
+# class Editor(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+
 
 class Abstract(models.Model):
     STATUS = (
@@ -54,7 +67,7 @@ class Abstract(models.Model):
         ("Rejected.", "Rejected"),
     )
     title = models.CharField(max_length=200, null=True)
-    abstract_body = models.TextField(max_length=600, null=True, blank=True)
+    abstract_body = models.TextField(max_length=600, null=True)
     keywords = models.CharField(max_length=300, null=True)
     author_name = models.CharField(max_length=200, null=True)
     author_email = models.EmailField(max_length=200, null=True)
@@ -66,8 +79,10 @@ class Abstract(models.Model):
     upload = models.FileField(upload_to="uploads/%Y/%m/%d/", blank=True)
     status = models.CharField(max_length=50, choices=STATUS, default='Pending')
     topics = models.ManyToManyField(Topic)
-    presentation_preference = models.ManyToManyField(Presentation_type)
+    presentation_preference = models.ForeignKey(Presentation_type, null=True, on_delete=models.SET_NULL, blank=True)
+    event = models.ForeignKey(Event, null=True, on_delete=models.SET_NULL)
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
+    # editors = models.ManyToManyField(User, related_name='assigned_abstracts', blank=True)
 
     def __str__(self):
         return self.title
@@ -82,3 +97,4 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.first_name, self.first_name, self.email, self.phone
+    

@@ -4,7 +4,7 @@ body{
 }
 .container{
     top: 50%;
-    transform: translate(0%, 20%);
+    transform: translate(0%, 10%);
 }
 .gradient-brand-color {
     background-image: -webkit-linear-gradient(0deg, #376be6 0%, #6470ef 100%);

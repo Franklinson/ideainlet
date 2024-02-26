@@ -16,6 +16,7 @@ class AbstractForm(ModelForm):
     class Meta:
         model = Abstract
         fields = '__all__'
+        exclude = ['status', 'author']
 
 
 class CreateUserForm(UserCreationForm):
@@ -28,3 +29,11 @@ class ContactForm(ModelForm):
      class Meta:
           model = Contact
           fields = '__all__'
+
+
+# class AssignEditorsForm(forms.Form):
+#     editors = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name='Editors'), widget=forms.CheckboxSelectMultiple)
+
+#     class Meta:
+#         model = Abstract
+#         fields = ['editor']

@@ -89,7 +89,7 @@ def author(request, pk):
     # Retrieve abstract information including topics
     abstract_info = []
     for abstract in abstracts:
-        topics = abstract.topics.all()  # Retrieve topics associated with the abstract
+        topics = abstract.topics.all() 
         topic_names = [topic.topics for topic in topics]  # Extract names of topics
         abstract_info.append({
             'id': abstract.id,
@@ -156,7 +156,7 @@ def editor(request):
 def createAbstract(request, pk):
     author = Author.objects.get(id=pk)
     form = AbstractForm(initial={'author': author})
-    if request.method == 'POST':
+    if request.method == "POST":
         form =AbstractForm(request.POST)
         if form.is_valid():
             form.save()
@@ -216,7 +216,7 @@ def userPage(request):
     
     abstracts = Abstract.objects.all()
     authors = Author.objects.all()
-    abstracts = Abstract.objects.all()
+    # abstracts = Abstract.objects.all()
 
     total_author = authors.count()
     total_abstract = abstracts.count()
@@ -244,3 +244,24 @@ def accountSettings(request):
 
     context = {'form': form}
     return render(request, 'abstract/account_settings.html', context)
+
+
+
+
+
+# def assign_editors(request, abstract_id):
+#     abstract = Abstract.objects.get(pk=abstract_id)
+#     editors = User.objects.filter(groups__name='Editors')
+#     abstracts = Abstract.objects.all()
+
+#     if request.method == 'POST':
+#         form = AssignEditorsForm(request.POST)
+#         if form.is_valid():
+#             editors_selected = form.cleaned_data['Editors']
+#             for editor in editors_selected:
+#                 abstract.editors.add(editor)
+#             return redirect('/reviewer')  # Redirect to editor dashboard after assignment
+#     else:
+#         form = AssignEditorsForm()
+
+#     return render(request, 'abstract/assign_editors.html', {'form': form, 'editors': editors, 'abstracts':abstracts})

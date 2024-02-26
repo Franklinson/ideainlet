@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
 
     path('contact/', views.contactUs, name="contact"),
+    # path('assign_editors/<int:abstract_id>/', views.assign_editors, name='assign_editors'),
 
     path('', views.home, name='home'),
     path('abstract/', views.abstract, name='abstract'),
