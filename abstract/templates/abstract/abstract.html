@@ -17,11 +17,11 @@
 							<th>Preferences</th>
 						</tr>
 
-						{% for i in abstracts %}
+						{% for abstract in abstracts %}
 							<tr>
-								<td>{{ i.title }}</td>
-								<td>{{ i.topics }}</td>
-								<td>{{ i.presentation_preference }}</td>
+								<td>{{ abstract.title }}</td>
+								<td>{{ abstract.topics }}</td>
+								<td>{{ abstract.presentation_preference }}</td>
 							</tr>
 
 						{% endfor %}

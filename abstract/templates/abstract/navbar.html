@@ -19,8 +19,8 @@
         <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
         <a class="nav-item nav-link" href="#">Post</a>
         <a class="nav-item nav-link" href="#">About Us</a>
-        <a class="nav-item nav-link" href="#">Contact Us</a>
-        {% if request.user.unauthenticated %}
+        <a class="nav-item nav-link" href="{% url 'contact' %}">Contact Us</a>
+        {% if request.user.unautheticated_user %}
         <a class="nav-item nav-link active" href="{% url 'login' %}"> Login</a>
         <a class="nav-item nav-link active" href="{% url 'register' %}"> Register</a>
         {% endif %}
@@ -28,13 +28,17 @@
         <a class="nav-item nav-link" href="{% url 'reviewer' %}">Reviewer</a>
         <a class="nav-item nav-link" href="{% url 'editor' %}">Editor</a>
         <a class="nav-item nav-link" href="{% url 'abstract' %}">Abstract</a>
-        {% else %}
+        {% endif %}
+        {% if request.user.author %}
        <li class="nav-item">
         <a class="nav-link" href="{% url 'account' %}">Settings</a>
       </li>
       </div>
     </div>
-    <span class="btn btn-info" ><a href="{% url 'user' %}">Hello, {{request.user}} </a></span>
+    <span><a class="btn btn-info" href="{% url 'user' %}">Hello, {{request.user}} </a></span>
     <span><a class="btn btn-info" href="{% url 'logout' %}"> Logout</a></span>
+    {% else  %}
+    <a class="nav-item nav-link active" href="{% url 'login' %}"> Login</a>
+    <a class="nav-item nav-link active" href="{% url 'register' %}"> Register</a>
     {% endif %}
   </nav>

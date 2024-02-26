@@ -73,20 +73,12 @@ class Abstract(models.Model):
         return self.title
     
 
-# class Statuse(models.Model):
-#     STATUS = (
-#         ("Pending", "Pending"),
-#         ("Under Review", "Under Review"),
-#         ("Accepted", "Accepted"),
-#         ("Rejected.", "Rejected"),
-#     )
-#     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
-#     abstract = models.ForeignKey(Abstract, null=True, on_delete=models.SET_NULL)
-#     date_created = models.DateTimeField(auto_now_add=True, null=True)
-#     status = models.CharField(max_length=50, choices=STATUS)
+class Contact(models.Model):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
+    phone = models.CharField(max_length=200)
+    message = models.TextField(max_length=600)
 
-#     def __str__(self):
-#         return self.author, self.status, self.date_created
-
-
-
+    def __str__(self):
+        return self.first_name, self.first_name, self.email, self.phone

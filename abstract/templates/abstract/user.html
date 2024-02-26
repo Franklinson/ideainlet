@@ -9,10 +9,12 @@
         <div class="card card-body">
             <table class="table table-sm">
                 <tr>
-                    <th>Abstract</th>
-                    <th>Topic</th>
+                    <th>Title</th>
                     <th>Date Submitted</th>
+                    <th>Date Updated</th>
                     <th>Status</th>
+                    <th>Update</th>
+                    <th>Delte</th>
                     
                 </tr>
 
@@ -22,6 +24,8 @@
                         <td>{{ abstract.date_created }}</td>
                         <td>{{ abstract.date_updated }}</td>
                         <td>{{ abstract.status }}</td>
+                        <td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
+                        <td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                     </tr>
 
 				{% endfor %}

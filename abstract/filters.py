@@ -18,4 +18,4 @@ class AbstractFilter(django_filters.FilterSet):
         exclude = ['topics', 'abstract_body', 'author_name', 'author_email',
                    'author_affiliation', 'presenter_name', 'presenter_email',
                    'date_created', 'presentation_preference', 'author', 'keywords',
-                   'status', 'upload']
+                   'status', 'upload', 'date_updated']

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import AbstractForm, CreateUserForm, AuthorForm
+from .forms import AbstractForm, CreateUserForm, AuthorForm, ContactForm
 from .filters import AuthorFilter, AbstractFilter
 from django.contrib.auth.forms import UserCreationForm
 
@@ -51,7 +51,19 @@ def loginPage(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('/')
+
+
+def contactUs(request):
+    contact = Contact.objects.all()
+    form = ContactForm(initial={'contact': contact})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    context={'form': form}
+    return render(request, 'abstract/contact.html', context)
 
 
 def home(request):
@@ -62,9 +74,11 @@ def home(request):
 @allowed_users(allowed_roles=['editor', 'reviewer'])
 def abstract(request):
     abstracts = Abstract.objects.all()
+    # presentation_types = Abstract.presentation_preference.all()
     # topics = Topic.objects.all()
     # presentations = Presentation_type.objects.all()
-    return render(request, 'abstract/abstract.html', {'abstracts': abstracts})
+    context = {'abstracts': abstracts}
+    return render(request, 'abstract/abstract.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['author', 'reviewer'])
@@ -81,6 +95,7 @@ def author(request, pk):
             'id': abstract.id,
             'title': abstract.title,
             'topics': topic_names,
+            'status': abstract.status,
             'date_created': abstract.date_created,
             'date_updated': abstract.date_updated
         })
@@ -125,7 +140,7 @@ def reviewer(request):
 def editor(request):
     # authors = Author.objects.all()
     abstracts = Abstract.objects.all()
-    status = Statuse.objects.all()
+    # status = Statuse.objects.all()
 
     # total_author = authors.count()
     # total_abstract = abstracts.count()
@@ -145,7 +160,12 @@ def createAbstract(request, pk):
         form =AbstractForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/reviewer')
+            if request.user.groups.filter(name='reviewer').exists():
+                return redirect('/reviewer')
+            elif request.user.groups.filter(name='author').exists():
+                return redirect('/user')
+            elif request.user.groups.filter(name='editor').exists():
+                return redirect('/editor')
 
     context = {"form": form}
     return render(request, 'abstract/abstract_form.html', context)
@@ -161,7 +181,12 @@ def updateAbstract(request, pk):
         form =AbstractForm(request.POST, instance=abstract)
         if form.is_valid():
             form.save()
-            return redirect('/reviewer')
+            if request.user.groups.filter(name='reviewer').exists():
+                return redirect('/reviewer')
+            elif request.user.groups.filter(name='author').exists():
+                return redirect('/user')
+            elif request.user.groups.filter(name='editor').exists():
+                return redirect('/editor')
         
     context = {'form': form}
     return render(request, 'abstract/abstract_form.html', context)
@@ -173,7 +198,12 @@ def deleteAbstract(request, pk):
     abstract = Abstract.objects.get(id=pk)
     if request.method == "POST":
         abstract.delete()
-        return redirect('/reviewer')
+        if request.user.groups.filter(name='reviewer').exists():
+            return redirect('/reviewer')
+        elif request.user.groups.filter(name='author').exists():
+            return redirect('/user')
+        elif request.user.groups.filter(name='editor').exists():
+                return redirect('/editor')
     context ={'item': abstract}
     return render(request, 'abstract/delete.html', context)
 
@@ -181,7 +211,7 @@ def deleteAbstract(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
 def userPage(request):
-
+    author = request.user.author
     aus = request.user.author.abstract_set.all()
     
     abstracts = Abstract.objects.all()
@@ -194,7 +224,7 @@ def userPage(request):
 
     context ={'aus':aus, 'abstracts':abstracts, 'authors': authors, 
                'total_author':total_author, 'total_abstract':total_abstract,
-               'accepted': accepted,}
+               'accepted': accepted, 'author':author}
 
     return render(request, 'abstract/user.html', context)
 
