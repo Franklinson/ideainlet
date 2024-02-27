@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 
 # Create your models here.
@@ -54,8 +54,8 @@ class Event(models.Model):
         return self.event
     
 
-# class Editor(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Editor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
 
 
@@ -79,11 +79,10 @@ class Abstract(models.Model):
     upload = models.FileField(upload_to="uploads/%Y/%m/%d/", blank=True)
     status = models.CharField(max_length=50, choices=STATUS, default='Pending')
     topics = models.ManyToManyField(Topic)
-    presentation_preference = models.ForeignKey(Presentation_type, null=True, on_delete=models.SET_NULL, blank=True)
+    presentation_preference = models.ManyToManyField(Presentation_type)
     event = models.ForeignKey(Event, null=True, on_delete=models.SET_NULL)
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
-    # editors = models.ManyToManyField(User, related_name='assigned_abstracts', blank=True)
-
+    editors = models.ManyToManyField(Group, related_name='assigned_abstracts', blank=True)
     def __str__(self):
         return self.title
     

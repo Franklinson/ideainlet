@@ -9,12 +9,13 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
 
     path('contact/', views.contactUs, name="contact"),
+    path('assign_abstract/', views.assign_abstract, name='assign_abstract'),
     # path('assign_editors/<int:abstract_id>/', views.assign_editors, name='assign_editors'),
 
     path('', views.home, name='home'),
     path('abstract/', views.abstract, name='abstract'),
     path('reviewer/', views.reviewer, name='reviewer'),
-    path('editor/', views.editor, name='editor'),
+    path('editor/', views.editor_dashboard, name='editor'),
     path('author/<str:pk>/', views.author, name='author'),
     path('user/', views.userPage, name='user'),
     path('account/', views.accountSettings, name="account"),

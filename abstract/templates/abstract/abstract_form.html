@@ -5,6 +5,12 @@
 {% block content %}
 
 <br>
+<script>
+    window.onload = function() {
+      // Set focus on the select element with the id "mySelect"
+      document.getElementById("mySelect").focus();
+    };
+  </script>
 
 <div class="container h-50">
     <div class="col-md-12">
@@ -14,7 +20,7 @@
                 kindly go through the Recommended Guidelines for Abstract Submission.
             </p>
             <hr>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <div class="row">
@@ -42,17 +48,16 @@
                             <label for="upload"><strong> Attachment </strong></label>
                             <!-- <label for="upload">Attachment</label> -->
                             {{ form.upload}}
-                            {{ form.upload}}
-                            {{ form.upload}}
+                            
                         </div>
                     </div>
                     <div class="col-md">
                         
                         <div class="card card-body">
-                            <label for="Author"><strong> Event Information</strong></label>
+                            <label for="Event Information"><strong> Event Information</strong></label>
                             <hr>
                             <div class="card card-body">
-                                <label for="Author"><strong> Event</strong></label>
+                                <label for="Event"><strong> Event</strong></label>
                                 {{form.event}}
                                 <br>
                             <label for="Topics"><strong> Topics </strong></label>
@@ -95,7 +100,7 @@
                         <div class="card card-body">
                             <label for="Preference"><strong> Presentation Preference</strong></label>
                             <hr>
-                            <select name="Preference">
+                            <select name="presentation_preference">
                                 {% for choice in form.presentation_preference.field.choices %}
                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                 {% endfor %}
@@ -104,6 +109,34 @@
 
                         </div>
                     </div>
+                </div>
+                {% if is_editor or request.user.is_staff %}
+                <br>
+                <hr>
+                <div class="row">
+                    <div class="col-md">
+                        
+                        <div class="card card-body">
+                            <label for="Status Information"><strong> Status Information</strong></label>
+                            <hr>
+                            <div class="card card-body">
+                                <label for="Status"><strong> Status</strong></label>
+                                <select name="status">
+                                    {% for choice in form.status.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                                <label for="Authors"><strong> Authors</strong></label>
+                                <select name="author">
+                                    {% for choice in form.author.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
 
                 </div>
                 <input class="btn btn-primary btn-sm" type="submit" name="Submit">

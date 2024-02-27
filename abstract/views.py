@@ -136,18 +136,12 @@ def reviewer(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
-def editor(request):
-    # authors = Author.objects.all()
-    abstracts = Abstract.objects.all()
-    # status = Statuse.objects.all()
+@allowed_users(allowed_roles=['editor', 'reviewer'])
+def editor_dashboard(request):
+    # Get the abstracts assigned to the logged-in editor
+    assigned_abstracts = Abstract.objects.filter(editors=request.user.groups.first())
 
-    # total_author = authors.count()
-    # total_abstract = abstracts.count()
-    # accepted = status.filter(status='Accepted').count
-
-
-    context = {'abstracts': abstracts}
+    context = {'assigned_abstracts': assigned_abstracts}
     return render(request, 'abstract/editor.html', context)
 
 
@@ -155,41 +149,42 @@ def editor(request):
 @allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
 def createAbstract(request, pk):
     author = Author.objects.get(id=pk)
-    form = AbstractForm(initial={'author': author})
     if request.method == "POST":
-        form =AbstractForm(request.POST)
+        form = AbstractForm(request.POST, request.FILES, initial={'author': author})
         if form.is_valid():
-            form.save()
-            if request.user.groups.filter(name='reviewer').exists():
-                return redirect('/reviewer')
-            elif request.user.groups.filter(name='author').exists():
-                return redirect('/user')
-            elif request.user.groups.filter(name='editor').exists():
-                return redirect('/editor')
-
+            abstract = form.save()
+            redirect_url = get_redirect_url(request.user)
+            return redirect(redirect_url)
+    else:
+        form = AbstractForm(initial={'author': author})
     context = {"form": form}
     return render(request, 'abstract/abstract_form.html', context)
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
 def updateAbstract(request, pk):
     abstract = Abstract.objects.get(id=pk)
-    form = AbstractForm(instance=abstract)
-
     if request.method == 'POST':
-        form =AbstractForm(request.POST, instance=abstract)
+        form = AbstractForm(request.POST, request.FILES, instance=abstract)
         if form.is_valid():
             form.save()
-            if request.user.groups.filter(name='reviewer').exists():
-                return redirect('/reviewer')
-            elif request.user.groups.filter(name='author').exists():
-                return redirect('/user')
-            elif request.user.groups.filter(name='editor').exists():
-                return redirect('/editor')
-        
-    context = {'form': form}
+            redirect_url = get_redirect_url(request.user)
+            return redirect(redirect_url)
+    else:
+        form = AbstractForm(instance=abstract)
+    is_editor = request.user.groups.filter(name='editor').exists()
+    context = {'form': form, 'is_editor':is_editor}
     return render(request, 'abstract/abstract_form.html', context)
+
+def get_redirect_url(user):
+    if user.groups.filter(name='reviewer').exists():
+        return '/reviewer'
+    elif user.groups.filter(name='author').exists():
+        return '/user'
+    elif user.groups.filter(name='editor').exists():
+        return '/editor'
+    else:
+        return '/'
 
 
 @login_required(login_url='login')
@@ -240,7 +235,7 @@ def accountSettings(request):
         if form.is_valid():
             form.save()
             # Redirect to a success URL after saving the form
-            return redirect('/user')  # Change 'success-url' to your desired URL
+            return redirect('/user')
 
     context = {'form': form}
     return render(request, 'abstract/account_settings.html', context)
@@ -249,19 +244,26 @@ def accountSettings(request):
 
 
 
-# def assign_editors(request, abstract_id):
-#     abstract = Abstract.objects.get(pk=abstract_id)
-#     editors = User.objects.filter(groups__name='Editors')
-#     abstracts = Abstract.objects.all()
+@allowed_users(allowed_roles=['editor', 'reviewer'])
+def assign_abstract(request):
+    if request.method == 'POST':
+        abstract_id = request.POST.get('abstract_id')
+        group_ids = request.POST.getlist('groups')
+        
+        abstract = Abstract.objects.get(id=abstract_id)
+        groups = Group.objects.filter(id__in=group_ids)
+        
+        # Clear existing editor groups and assign the selected groups
+        abstract.editors.clear()
+        abstract.editors.add(*groups)
+        
+        return redirect('reviewer')
 
-#     if request.method == 'POST':
-#         form = AssignEditorsForm(request.POST)
-#         if form.is_valid():
-#             editors_selected = form.cleaned_data['Editors']
-#             for editor in editors_selected:
-#                 abstract.editors.add(editor)
-#             return redirect('/reviewer')  # Redirect to editor dashboard after assignment
-#     else:
-#         form = AssignEditorsForm()
+    else:
+        # Filter users who belong to the 'Editor' group
+        editors_group = Group.objects.get(name='editor')
+        editors = editors_group.user_set.all()
 
-#     return render(request, 'abstract/assign_editors.html', {'form': form, 'editors': editors, 'abstracts':abstracts})
+        abstracts = Abstract.objects.all()
+        context = {'abstracts': abstracts, 'editors': editors}
+        return render(request, 'abstract/assign_abstract.html', context)

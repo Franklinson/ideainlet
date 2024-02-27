@@ -16,7 +16,7 @@ class AbstractForm(ModelForm):
     class Meta:
         model = Abstract
         fields = '__all__'
-        exclude = ['status', 'author']
+        exclude = ['author']
 
 
 class CreateUserForm(UserCreationForm):
@@ -29,6 +29,7 @@ class ContactForm(ModelForm):
      class Meta:
           model = Contact
           fields = '__all__'
+
 
 
 # class AssignEditorsForm(forms.Form):
