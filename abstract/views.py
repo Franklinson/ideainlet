@@ -140,8 +140,12 @@ def reviewer(request):
 def editor_dashboard(request):
     # Get the abstracts assigned to the logged-in editor
     assigned_abstracts = Abstract.objects.filter(editors=request.user.groups.first())
+    total_abstract = assigned_abstracts.count()
+    is_editor = request.user.groups.filter(name='editor').exists()
 
-    context = {'assigned_abstracts': assigned_abstracts}
+
+    context = {'assigned_abstracts': assigned_abstracts,
+               'total_abstract':total_abstract, 'is_editor':is_editor}
     return render(request, 'abstract/editor.html', context)
 
 

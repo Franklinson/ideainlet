@@ -51,47 +51,42 @@
             </div>
     
             <div class="col-lg-7 contact-form__wrapper p-5 order-lg-1">
-                <form action="#" class="contact-form form-validate" novalidate="novalidate">
+                <form action="#" class="contact-form form-validate" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-sm-6 mb-3">
                             <div class="form-group">
                                 <label class="required-field" for="firstName">First Name</label>
-                                <!-- <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Franklin"> -->
+                                <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Franklin">
                             </div>
-                            {{form.first_name}}
                         </div>
     
                         <div class="col-sm-6 mb-3">
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <!-- <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Hassey"> -->
+                                <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Hassey">
                             </div>
-                            {{form.last_name}}
                         </div>
     
                         <div class="col-sm-6 mb-3">
                             <div class="form-group">
                                 <label class="required-field" for="email">Email</label>
-                                <!-- <input type="text" class="form-control" id="email" name="email" placeholder="franklin@ideainlet.com"> -->
+                                <input type="text" class="form-control" id="email" name="email" placeholder="franklin@ideainlet.com">
                             </div>
-                            {{form.email}}
                         </div>
     
                         <div class="col-sm-6 mb-3">
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <!-- <input type="tel" class="form-control" id="phone" name="phone" placeholder="(233)-501473-737"> -->
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="(233)-501473-737">
                             </div>
-                            {{form.phone}}
                         </div>
     
                         <div class="col-sm-12 mb-3">
                             <div class="form-group">
                                 <label class="required-field" for="message">How can we help?</label>
-                                <!-- <textarea class="form-control" id="message" name="message" rows="4" placeholder="Hi there, I would like to....."></textarea> -->
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Hi there, I would like to....."></textarea>
                             </div>
-                            {{form.message}}
                         </div>
     
                         <div class="col-sm-12 mb-3">

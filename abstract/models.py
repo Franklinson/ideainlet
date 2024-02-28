@@ -30,7 +30,7 @@ class Author(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.first_name
+        return f'{self.first_name} - {self.last_name} - {self.email} - {self.phone}'
 
 
 class Topic(models.Model):
@@ -56,6 +56,9 @@ class Event(models.Model):
 
 class Editor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}'
     
 
 
@@ -84,7 +87,7 @@ class Abstract(models.Model):
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     editors = models.ManyToManyField(Group, related_name='assigned_abstracts', blank=True)
     def __str__(self):
-        return self.title
+        return f'{self.title} - {self.author_name} - {self.presentation_preference} - {self.presenter_name}'
     
 
 class Contact(models.Model):
@@ -95,5 +98,5 @@ class Contact(models.Model):
     message = models.TextField(max_length=600)
 
     def __str__(self):
-        return self.first_name, self.first_name, self.email, self.phone
+        return f'{self.first_name} - {self.last_name} - {self.email} - {self.phone}'
     
