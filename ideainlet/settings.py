@@ -138,3 +138,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'email account'
 EMAIL_HOST_PASSWORD = 'My App Password '
+
+
+
+#Paystack Payment Keys
+
+PAYSTACK_SECRET_KEY = 'sk_test_852365c53661085c01d821f5bcbef6bd7552bcd4'
+PAYSTACK_PUBLIC_KEY = 'pk_test_080b9bc20ecb601884fbbb2deb955f61d60ef057'

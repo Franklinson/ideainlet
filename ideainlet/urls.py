@@ -24,3 +24,9 @@ urlpatterns = [
     path('', include('abstract.urls'))
     
 ]
+
+# Customise admin dashboard
+
+admin.site.site_header = "Idea Inlet"
+admin.site.site_title = "Idea Inlet"
+admin.site.index = "Welcome to Admin Dashboard"

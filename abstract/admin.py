@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Abstract, Topic, Presentation_type, Contact, Event, Editor
+from .models import *
 
 # Register your models here.
 
@@ -10,3 +10,5 @@ admin.site.register(Abstract)
 admin.site.register(Contact)
 admin.site.register(Event)
 admin.site.register(Editor)
+admin.site.register(Product)
+admin.site.register(PlaceOrder)

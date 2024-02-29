@@ -21,12 +21,9 @@
 
 	<div class="col">
         <div class="card card-body">
-            <form method="get">
-				<p> Search for Abstracts </p>
-				{{absfilter.form}}
-
-            <button class="btn btn-primary" type="submit">Search</button>
-          </form>
+			<p> Use the button bellow to assign abstracts to editors</p>
+				
+				<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'assign_abstract' %}">Asssign Abstract</a>
         </div>
     </div>
     
@@ -65,14 +62,13 @@
 		<h5>LAST 5 ABSTRACT</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Submitted Abstract</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'assign_abstract' %}">Assign Abstract</a>
 			<table class="table table-sm">
 				<tr>
 					<th>Abstract</th>
 					<th>Date submitted</th>
 					<th>Name</th>
 					<th>Status</th>
-					<th>Assign</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
@@ -83,7 +79,6 @@
                     <td>{{ abstract.date_created }}</td>
 					<td>{{ abstract.author_name }}</td>
 					<td>{{ abstract.status }}</td>
-					<td><a class= "btn btn-sm btn-info" href="{% url 'assign_abstract' %}"> Assign </a></td>
 					<td><a class= "btn btn-sm btn-info" href="{% url 'update_abstract' abstract.id %}"> Update </a></td>
 					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_abstract' abstract.id %}"> Delete </a></td>
                 </tr>

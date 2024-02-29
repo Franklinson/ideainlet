@@ -17,7 +17,7 @@
     <ul class="navbar-nav">
         <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
         <a class="nav-item nav-link" href="#">Post</a>
-        <a class="nav-item nav-link" href="#">About Us</a>
+        <a class="nav-item nav-link" href="{% url 'place-order' %}">Payment</a>
         <a class="nav-item nav-link" href="{% url 'contact' %}">Contact Us</a>
       {% if not user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>

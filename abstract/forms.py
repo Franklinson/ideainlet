@@ -31,6 +31,12 @@ class ContactForm(ModelForm):
           fields = '__all__'
 
 
+class PlaceOrderForm(forms.ModelForm):
+	class Meta:
+		model = PlaceOrder
+		fields = ['first_name','last_name', 'address', 'phone']
+
+
 
 # class AssignEditorsForm(forms.Form):
 #     editors = forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups__name='Editors'), widget=forms.CheckboxSelectMultiple)

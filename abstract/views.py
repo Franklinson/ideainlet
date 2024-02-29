@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.conf import settings
 from .models import *
-from .forms import AbstractForm, CreateUserForm, AuthorForm, ContactForm
+from .forms import AbstractForm, CreateUserForm, AuthorForm, ContactForm, PlaceOrderForm
 from .filters import AuthorFilter, AbstractFilter
 from django.contrib.auth.forms import UserCreationForm
 
@@ -271,3 +272,52 @@ def assign_abstract(request):
         abstracts = Abstract.objects.all()
         context = {'abstracts': abstracts, 'editors': editors}
         return render(request, 'abstract/assign_abstract.html', context)
+    
+
+def place_order(request):
+	if request.method == 'POST':
+		form = PlaceOrderForm(request.POST)
+		if form.is_valid():
+			var = form.save(commit=False)
+			product = Product.objects.get(pk=1)
+			var.product = product
+			var.user = request.user
+			var.total_cost = product.price
+			var.save()
+			payment = Payment.objects.create(amount=var.total_cost, email=request.user.email, user=request.user)
+			payment.save()
+			pk = settings.PAYSTACK_PUBLIC_KEY
+			context = {
+			'total_cost': var.total_cost,
+			# 'item_amount': var.item_amount,
+			'payment': payment,
+			'paystack_pub_key':pk,
+			'amount_value': payment.amount_value()
+			}
+			request.session['order_id'] = var.id
+			return render(request, 'abstract/make_payment.html', context)
+
+		else:
+			messages.warning(request, 'Error, Something went wrong')
+			return redirect('place-order')
+
+	else:
+		form = PlaceOrderForm()
+		context = {'form':form}
+		return  render(request, 'abstract/place_order.html', context)
+     
+
+def verify_payment(request, ref):
+	payment = Payment.objects.get(ref=ref)
+	verified = payment.verify_payment()
+
+	if verified:
+		pk = request.session['order_id']
+		order = PlaceOrder.objects.get(pk=pk)
+		order.is_verified = True
+		order.save()
+		context = {'place-order':pk, 'payment':payment}
+		return render(request, 'abstract/success.html', context)
+	else:
+		messages.warning(request, 'Sorry your Payment was not processed, contact admin')
+		return redirect('/')
