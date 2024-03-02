@@ -14,6 +14,10 @@ Ideal Inlet is a comprehensive online platform designed to streamline the proces
 
 ## Installation
 
+Prerequisites:
+* Python 3.6 or later
+* pip (package manager for Python)
+
 1. Clone the repository:
 
 ```bash
@@ -30,6 +34,7 @@ source ideal_inlet_env/bin/activate
 3. Install dependencies:
 
 ```bash
+cd idealinlet
 pip install -r requirements.txt
 ```
 
@@ -38,23 +43,14 @@ pip install -r requirements.txt
 ```bash
 python manage.py migrate
 ```
-5 . Run the development server:
+
+5. Run the development server:
 
 ```bash
 python manage.py runserver
 ```
 
-## Recommended modules
-
-## Deployment
-
-To deploy this project run
-
-```bash
-  python manage.py runserver
-```
-
-## Installation
+This will start the Django development server, accessible by default at http://127.0.0.1:8000/.
 
 ## Demo
 
