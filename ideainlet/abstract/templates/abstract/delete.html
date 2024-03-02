@@ -1,0 +1,16 @@
+{% extends 'abstract/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<p> Are you sure you want to delete "{{item}}"?</p>
+<form action="{% url 'delete_abstract' item.id %}"    method="POST">
+
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'reviewer' %}"> cancel</a>
+
+    <input class="btn btn-danger" type="submit" name=" Confirm">
+
+</form>
+
+{% endblock %}

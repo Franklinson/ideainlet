@@ -82,11 +82,11 @@ class Abstract(models.Model):
     date_created = models.DateField(auto_now_add=True, null=True)
     date_updated = models.DateField(auto_now=True, null=True)
     upload = models.FileField(upload_to="uploads/%Y/%m/%d/", blank=True)
-    status = models.CharField(max_length=50, choices=STATUS, default='Pending')
+    status = models.CharField(max_length=50, choices=STATUS, default='Pending', blank=True)
     topics = models.ManyToManyField(Topic)
     presentation_preference = models.ManyToManyField(Presentation_type)
     event = models.ForeignKey(Event, null=True, on_delete=models.SET_NULL)
-    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL, blank=True)
     editors = models.ManyToManyField(Group, related_name='assigned_abstracts', blank=True)
     def __str__(self):
         return f'{self.title} - {self.author_name} - {self.presentation_preference} - {self.presenter_name}'

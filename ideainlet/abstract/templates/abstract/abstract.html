@@ -1,0 +1,35 @@
+{%  extends 'abstract/main.html' %}
+
+{% block content %}
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Abstracts</h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th>Title</th>
+							<th>Topics</th>
+							<th>Preferences</th>
+						</tr>
+
+						{% for abstract in abstracts %}
+							<tr>
+								<td>{{ abstract.title }}</td>
+								<td>{{ abstract.topics }}</td>
+								<td>{{ abstract.presentation_preference }}</td>
+							</tr>
+
+						{% endfor %}
+						
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
+{% endblock content %}

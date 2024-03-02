@@ -1,0 +1,151 @@
+
+{% extends 'abstract/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<br>
+<script>
+    window.onload = function() {
+      // Set focus on the select element with the id "mySelect"
+      document.getElementById("mySelect").focus();
+    };
+  </script>
+
+<div class="container h-50">
+    <div class="col-md-12">
+        <div class="card card-body">
+            <p><strong>Submit Abstract
+                Gentle Reminder:</strong> Before submitting your abstract,
+                kindly go through the Recommended Guidelines for Abstract Submission.
+            </p>
+            <hr>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-body">
+                            <label for="Author"><strong> Abstract Information</strong></label>
+                            <hr>
+                            <label for="Title"><strong> Title </strong></label>
+                            {{ form.title}}
+                        </div>
+                        <br>
+                        <div class="card card-body">
+                            <label for="Body"><strong> Abstract Body </strong></label>
+                            <!-- <label for="Body"></label> -->
+                            {{ form.abstract_body}}
+                        </div>
+                        <br>
+                        <div class="card card-body">
+                            <label for="Keywords"><strong> Keywords </strong></label>
+                            <!-- <label for="Keywords">Keywords</label> -->
+                            {{ form.keywords}}
+                        </div>
+                        <br>
+                        <div class="card card-body">
+                            <label for="upload"><strong> Attachment </strong></label>
+                            <!-- <label for="upload">Attachment</label> -->
+                            {{ form.upload}}
+                            
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        
+                        <div class="card card-body">
+                            <label for="Event Information"><strong> Event Information</strong></label>
+                            <hr>
+                            <div class="card card-body">
+                                <label for="Event"><strong> Event</strong></label>
+                                {{form.event}}
+                                <br>
+                            <label for="Topics"><strong> Topics </strong></label>
+                            <select name="topics">
+                                {% for choice in form.topics.field.choices %}
+                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+
+                        <div class="card card-body">
+                            <label for="Author"><strong> Author Information</strong></label>
+                            <hr>
+                            <label for="upload">Author Name</label>
+                            <!-- <label for="Name"><strong>Author Name</strong></label> -->
+                            {{ form.author_name }}
+                            <label for="upload">Author Email</label>
+                            <!-- <label for="Name"><strong>Author Email</strong></label> -->
+                            {{ form.author_email }}
+                            <label for="upload">Author Affiliation</label>
+                            <!-- <label for="Name"><strong>Author Affiliation</strong></label> -->
+                            {{ form.author_affiliation }}
+
+                        </div>
+                        <br>
+
+                        <div class="card card-body">
+                            <label for="Presenter"><strong> Presenter Information</strong></label>
+                            <hr>
+                            <!-- <label for="Name"><strong>Presenter Name</strong></label>  -->
+                            <label for="Presenter Name">Presenter Name</label>
+                            {{ form.presenter_name }}
+                            <label for="Presenter Email">Presenter Email</label>
+                            <!-- <label for="Name"><strong></strong></label> -->
+                            {{ form.presenter_email }}
+
+                        </div>
+                        <br>
+                        <div class="card card-body">
+                            <label for="Preference"><strong> Presentation Preference</strong></label>
+                            <hr>
+                            <select name="presentation_preference">
+                                {% for choice in form.presentation_preference.field.choices %}
+                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            
+
+                        </div>
+                    </div>
+                </div>
+                {% if is_editor or request.user.is_staff %}
+                <br>
+                <hr>
+                <div class="row">
+                    <div class="col-md">
+                        
+                        <div class="card card-body">
+                            <label for="Status Information"><strong> Status Information</strong></label>
+                            <hr>
+                            <div class="card card-body">
+                                <label for="Status"><strong> Status</strong></label>
+                                <select name="status">
+                                    {% for choice in form.status.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                                <label for="Authors"><strong> Authors</strong></label>
+                                <select name="author">
+                                    {% for choice in form.author.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+                <input class="btn btn-primary btn-sm" type="submit" name="Submit">
+            </form>
+            
+        </div>
+    </div>
+    {{form.errors}}
+</div>
+
+
+{% endblock %}
