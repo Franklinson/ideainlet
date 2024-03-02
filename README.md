@@ -10,3 +10,8 @@ Ideal Inlet is an abstract submission project which is a comprehensive online pl
 
 ## Installation
 
+## Authors
+
+- [Franklin Etsey Hassey](https://github.com/Franklinson)
+- [Isabel Kikuvi](https://github.com/Isabel-Kikuvi)
+
