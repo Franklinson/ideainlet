@@ -14,6 +14,36 @@ Ideal Inlet is a comprehensive online platform designed to streamline the proces
 
 ## Installation
 
+1. Clone the repository:
+
+```bash
+    git clone https://github.com/Franklinson/ideainlet.git
+```
+
+2. Create a virtual environment and activate it:
+
+```bash
+python3 -m venv ideal_inlet_env
+source ideal_inlet_env/bin/activate
+```
+
+3. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Apply database migrations:
+
+```bash
+python manage.py migrate
+```
+5 . Run the development server:
+
+```bash
+python manage.py runserver
+```
+
 ## Recommended modules
 
 ## Deployment
