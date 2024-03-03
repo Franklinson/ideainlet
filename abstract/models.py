@@ -7,6 +7,9 @@ from .paystack import Paystack
 # Create your models here.
 
 class Author(models.Model):
+    """
+    Model representing an author of an abstract submission.
+    """
     TITLE = (
         ("Mr.", "Mr."),
         ("Mrs", "Mrs."),
@@ -36,12 +39,18 @@ class Author(models.Model):
 
 
 class Topic(models.Model):
+    """
+    Model representing a topic for an abstract submission.
+    """    
     topics = models.CharField(max_length=1000, null=True)
 
     def __str__(self):
         return self.topics
 
 class Presentation_type(models.Model):
+    """
+    Model representing a preferred presentation type for an abstract submission.
+    """
     presentation_preference = models.CharField(max_length=1000, null=True)
 
     def __str__(self):
@@ -50,6 +59,9 @@ class Presentation_type(models.Model):
 
     
 class Event(models.Model):
+    """
+    Model representing an event for which abstracts can be submitted.
+    """
     event = models.CharField(max_length=500, null=True)
 
     def __str__(self):
@@ -57,6 +69,9 @@ class Event(models.Model):
     
 
 class Editor(models.Model):
+    """
+    Model representing an editor associated with a group for abstract review.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -65,6 +80,9 @@ class Editor(models.Model):
 
 
 class Abstract(models.Model):
+    """
+    Model representing an abstract submission for an event.
+    """
     STATUS = (
         ("Pending", "Pending"),
         ("Under Review", "Under Review"),
@@ -92,7 +110,7 @@ class Abstract(models.Model):
         return f'{self.title} - {self.author_name} - {self.presentation_preference} - {self.presenter_name}'
     
 
-class Contact(models.Model):
+class Contact(models.Model):    
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
