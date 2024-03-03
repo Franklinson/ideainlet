@@ -52,6 +52,14 @@ python manage.py runserver
 
 This will start the Django development server, accessible by default at http://127.0.0.1:8000/.
 
+## Landing Page
+
+![alt text](image.png)
+
+## Users/Authors Dashboard
+
+![alt text](image.png)
+
 ## Reviewers Dashboard
 
 ![alt text](image.png)
