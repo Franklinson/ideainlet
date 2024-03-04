@@ -12,6 +12,15 @@ Ideal Inlet is a comprehensive online platform designed to streamline the proces
 * Customizable settings: Organizers can tailor submission criteria, review forms, and access controls.
 * Secure platform: Ensures data privacy and integrity for authors and organizers.
 
+## Technology & Architecture
+
+* Python - Django
+* Html
+* CSS
+* JavaScript
+* Sqlite
+* Bootstrap
+
 ## Installation
 
 Prerequisites:
