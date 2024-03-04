@@ -277,15 +277,15 @@ def userPage(request):
     author = request.user.author
     aus = request.user.author.abstract_set.all()
     
-    abstracts = Abstract.objects.all()
+    # abstracts = Abstract.objects.all()
     authors = Author.objects.all()
     # abstracts = Abstract.objects.all()
 
     total_author = authors.count()
-    total_abstract = abstracts.count()
-    accepted = abstracts.filter(status='Accepted').count
+    total_abstract = aus.count()
+    accepted = aus.filter(status='Accepted').count
 
-    context ={'aus':aus, 'abstracts':abstracts, 'authors': authors, 
+    context ={'aus':aus, 'authors': authors, 
                'total_author':total_author, 'total_abstract':total_abstract,
                'accepted': accepted, 'author':author}
 
