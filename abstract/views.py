@@ -277,9 +277,7 @@ def userPage(request):
     author = request.user.author
     aus = request.user.author.abstract_set.all()
     
-    # abstracts = Abstract.objects.all()
     authors = Author.objects.all()
-    # abstracts = Abstract.objects.all()
 
     total_author = authors.count()
     total_abstract = aus.count()
