@@ -84,7 +84,16 @@ def logoutUser(request):
 
 
 def contactUs(request):
-    
+    """
+    Renders the contact form page and handles form submission logic.
+
+    Args:
+        request : The incoming HTTP request object.
+
+    Returns:
+        A rendered response object for either the contact form
+        or showing a success message upon successful form submission.
+    """    
     contact = Contact.objects.all()
     form = ContactForm(initial={'contact': contact})
     if request.method == 'POST':
@@ -97,12 +106,30 @@ def contactUs(request):
 
 
 def home(request):
+    """
+    Renders the home page of the application.
+
+    Args:
+        request : The incoming HTTP request object.
+
+    Returns:
+        A rendered response object for the home page.
+    """
     context = {}
     return render(request, 'abstract/home.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor', 'reviewer'])
 def abstract(request):
+    """
+    Renders the abstracts list page for editors and reviewers.
+
+    Args:
+        request : The incoming HTTP request object.
+
+    Returns:
+        A rendered response object with a list of abstracts.
+    """
     abstracts = Abstract.objects.all()
     # presentation_types = Abstract.presentation_preference.all()
     # topics = Topic.objects.all()

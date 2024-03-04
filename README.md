@@ -24,6 +24,7 @@ Ideal Inlet is a comprehensive online platform designed to streamline the proces
 ## Installation
 
 Prerequisites:
+
 * Python 3.6 or later
 * pip (package manager for Python)
 
