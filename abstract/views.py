@@ -18,7 +18,16 @@ from .decorators import unautheticated_user, allowed_users, admin_only
 # Create your views here.
 @unautheticated_user
 def registerPage(request):
-    
+    """
+    Renders the registration page and handles user registration logic.
+
+    Args:
+        request (HttpRequest): The incoming HTTP request object.
+
+    Returns:
+        A rendered response object for either the registration form
+        or redirection to the login page upon successful registration.
+    """    
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -34,6 +43,16 @@ def registerPage(request):
 
 @unautheticated_user
 def loginPage(request):
+    """
+    Renders the login page and handles user authentication logic.
+
+    Args:
+        request (HttpRequest): The incoming HTTP request object.
+
+    Returns: 
+        A rendered response object for either the login form
+        or redirection to the home page upon successful login.
+    """
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -51,11 +70,21 @@ def loginPage(request):
 
 
 def logoutUser(request):
+    """
+    Logs out the currently authenticated user and redirects them to the home page.
+
+    Args:
+        request: The incoming HTTP request object.
+
+    Returns:
+        HttpResponse: A redirection response object to the home page.
+    """
     logout(request)
     return redirect('/')
 
 
 def contactUs(request):
+    
     contact = Contact.objects.all()
     form = ContactForm(initial={'contact': contact})
     if request.method == 'POST':
