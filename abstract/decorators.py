@@ -2,6 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 def unautheticated_user(view_func):
+    """
+    Decorator that redirects authenticated users to the home page.
+
+    Args:
+        view_func: The view function to be decorated.
+
+    Returns:The decorated view function.
+    """
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('home')
@@ -11,6 +19,14 @@ def unautheticated_user(view_func):
 
 
 def allowed_users(allowed_roles=[]):
+    """
+    Decorator that restricts access to views based on user roles.
+
+    Args:
+        allowed_roles (list, optional): A list of allowed user roles. Defaults to [].
+
+    Returns:The decorated view function.
+    """
     def decorator(view_func):
         def wrapper_func(request, *args, **kwargs):
 
@@ -27,6 +43,14 @@ def allowed_users(allowed_roles=[]):
 
 
 def admin_only(view_func):
+    """
+    Decorator that restricts access to views only for users in the 'admin' group.
+
+    Args:
+        view_func (callable): The view function to be decorated.
+
+    Returns:The decorated view function.
+    """
     def wrapper_func(request, *args, **kwargs):
 
         group = None
