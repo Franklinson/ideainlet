@@ -54,19 +54,19 @@ This will start the Django development server, accessible by default at http://1
 
 ## Landing Page
 
-![alt text](image.png)
+![alt text](landing_page.png)
 
 ## Users/Authors Dashboard
 
-![alt text](image.png)
+![alt text](Author.png)
 
 ## Reviewers Dashboard
 
-![alt text](image.png)
+![alt text](reviewers.png)
 
 ## Editors Dashboard
 
-![alt text](image-1.png)
+![alt text](editors.png)
 
 ## Demo
 
