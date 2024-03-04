@@ -147,7 +147,7 @@ def author(request, pk):
     abstract_info = []
     for abstract in abstracts:
         topics = abstract.topics.all() 
-        topic_names = [topic.topics for topic in topics]  # Extract names of topics
+        topic_names = [topic.topics for topic in topics]
         abstract_info.append({
             'id': abstract.id,
             'title': abstract.title,
@@ -221,6 +221,8 @@ def createAbstract(request, pk):
     context = {"form": form}
     return render(request, 'abstract/abstract_form.html', context)
 
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
 def updateAbstract(request, pk):
@@ -248,6 +250,8 @@ def get_redirect_url(user):
         return '/'
 
 
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor', 'author', 'reviewer'])
 def deleteAbstract(request, pk):
@@ -262,6 +266,9 @@ def deleteAbstract(request, pk):
                 return redirect('/editor')
     context ={'item': abstract}
     return render(request, 'abstract/delete.html', context)
+
+
+
 
 
 @login_required(login_url='login')
